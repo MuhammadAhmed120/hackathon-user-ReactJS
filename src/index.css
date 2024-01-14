@@ -5,6 +5,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @layer base{
+    :root{
+        --colors-bgLight: 255 255 255,
+        --colors-bgLightText: 0 0 0,
+        --colors-bgDark: 155 155 155,
+        --colors-bgDarkText: 255 255 255,
+    }
+} */
+
 body {
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
@@ -30,15 +39,36 @@ button {
     font-weight: 600;
 }
 
+
 .attendance-history {
     font-size: 16px;
     line-height: 1.5;
 }
 
+/* ANT FORM INPUT */
 .ant-form-item-label label {
     display: none !important;
 }
 
+
+/* MUI DRAWER */
+@media (min-width: 600px) {
+    .css-hyum1k-MuiToolbar-root {
+        padding: 0 !important;
+    }
+}
+
+.css-hyum1k-MuiToolbar-root {
+    padding: 0 !important;
+}
+
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+    max-width: 90% !important;
+    width: 300px !important;
+}
+
+
+/* THEME BUTTONS */
 .themeIconAni {
     animation: themeIconAni 0.3s ease-out;
 }
