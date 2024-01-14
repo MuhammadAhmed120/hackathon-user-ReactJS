@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CiLock } from 'react-icons/ci'
-import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 import { Form, Input } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
@@ -12,6 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { ThemeContext } from '../config/themeContext.jsx';
+import ThemeButtons from '../components/themeBtn.jsx';
 
 
 const Login = () => {
@@ -21,7 +21,9 @@ const Login = () => {
     const formRef = useRef(null);
     const [loading, setLoading] = useState(null)
     const [error, setError] = useState("")
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
+    const [formColor, setFormColor] = useState('')
+    const [inputColor, setInputColor] = useState('')
 
     // IF USER IS LOGGED IN NAVIGATE TO HOME
     useEffect(() => {
@@ -91,7 +93,13 @@ const Login = () => {
         }
     };
 
-    // sm:bg-gradient-to-br bg-gradient-to-b from-white from-10% sm:to-indigo-200 to-indigo-50 to-90% 
+    // CHANGING THEME COLOR
+    useEffect(() => {
+        const formColor = theme ? 'bg-tabLight' : 'bg-tabDark'
+        const inputColor = theme ? 'bg-[#f5f5f5]' : 'bg-navDark'
+        setFormColor(formColor)
+        setInputColor(inputColor)
+    }, [theme])
 
     return (
         <>
@@ -100,16 +108,14 @@ const Login = () => {
                 <CiLock className='mb-3 absolute top-4 left-5 text-[23px] md:text-[26px] z-50' />
 
                 {/* THEME ICONS */}
-                {theme ?
-                    <MdDarkMode className={`mb-3 absolute top-4 right-5 text-blue-800 text-[23px] md:text-[26px] z-50 cursor-pointer ${!theme ? 'hidden' : 'themeIconAni block'}`} onClick={toggleTheme} />
-                    :
-                    <MdLightMode className={`mb-3 absolute top-4 right-5 text-orange-400 text-[23px] md:text-[26px] z-50 cursor-pointer ${theme ? 'hidden' : 'themeIconAni block'}`} onClick={toggleTheme} />
-                }
+                <ThemeButtons position='absolute' />
 
+
+                {/* FORM */}
                 <Form
                     ref={formRef}
                     name="normal_login"
-                    className="mx-auto max-w-sm px-4 py-6 sm:bg-white  sm:shadow-lg rounded-lg w-full flex flex-col sm:justify-center sm:gap-14 sm:h-auto h-full justify-evenly"
+                    className={`mx-auto max-w-sm px-4 py-6 ${`sm:${formColor}`} sm:tabDark  sm:shadow-lg rounded-lg w-full flex flex-col sm:justify-center sm:gap-14 sm:h-auto h-full justify-evenly`}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     scrollToFirstError={true}
@@ -117,8 +123,8 @@ const Login = () => {
                     layout='vertical'
                 >
                     {/* USER PORTAL TITLE */}
-                    <Form.Item className={`m-0 sm:bg-transparent sm:text-black ${theme ? 'text-blue-700' : 'text-orange-200'} sm:p-0 p-3 w-full absolute top-0 left-0 sm:relative`}>
-                        <h1 className='text-2xl sm:text-3xl font-semibold sm:text-slate-800 w-fit mx-auto'>User Portal</h1>
+                    <Form.Item className={`m-0 sm:bg-transparent ${theme ? 'text-blue-700' : 'text-orange-200'} sm:p-0 p-3 w-full absolute top-0 left-0 sm:relative`}>
+                        <h1 className='text-2xl sm:text-3xl font-semibold w-fit mx-auto'>User Portal</h1>
                     </Form.Item>
 
                     {/* INPUTS */}
@@ -159,6 +165,7 @@ const Login = () => {
                             />
                         </Form.Item>
 
+                        {/* ERROR */}
                         {error.length > 0 && <Form.Item className='-mb-4 -mt-4'>
                             <span className='text-red-500 text-[13px] sm:text-[15px]'>{error}</span>
                         </Form.Item>}
@@ -166,7 +173,7 @@ const Login = () => {
 
                     {/* LOGIN BUTTON */}
                     <Form.Item className='mb-2'>
-                        <LoadingButton type='primary' variant={theme ? 'outlined' : 'contained'} loading={loading} className='w-full' color='success' endIcon={<LoginIcon size="large" />}>
+                        <LoadingButton type='primary' variant={theme ? 'outlined' : 'contained'} loading={loading} className='w-full' endIcon={<LoginIcon size="large" />}>
                             <span className='font-semibold'>
                                 Login
                             </span>

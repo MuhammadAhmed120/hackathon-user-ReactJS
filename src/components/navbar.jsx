@@ -1,8 +1,12 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { AppBar, Toolbar, Typography, CssBaseline, Slide, useScrollTrigger, Box, Fab, Fade, Button } from '@mui/material';
+
+import { AppBar, Toolbar, CssBaseline, Slide, useScrollTrigger, Box, Fab, Fade, Button } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
+import ThemeButtons from './themeBtn.jsx';
+import { ThemeContext } from "../config/themeContext"
 
 function ScrollTop(props) {
     const { children, window } = props;
@@ -57,6 +61,8 @@ ScrollTop.propTypes = HideOnScroll.propTypes = {
 
 export default function Navbar(props) {
     const navigate = useNavigate()
+    const { theme } = useContext(ThemeContext);
+    const [navBgColor, setNavBgColor] = useState('')
 
     const handleLogout = async () => {
         await localStorage.removeItem('token')
@@ -64,21 +70,30 @@ export default function Navbar(props) {
         navigate('/login')
     }
 
+    // CHANGING THEME COLOR
+    useEffect(() => {
+        const navBgColor = theme ? 'bg-navLight' : 'bg-navDark'
+        setNavBgColor(navBgColor)
+    }, [theme])
+
     return (
         <>
             <CssBaseline />
             <HideOnScroll {...props}>
-                <AppBar sx={{ boxShadow: 'none' }}>
-                    <Toolbar className='text-center flex items-center justify-between bg-gradient-to-l from-indigo-500 from-30% to-indigo-600 to-50%'>
-                        <Typography variant="h6" component="div">
-                            Navbar
-                        </Typography>
-                        <Button sx={{ color: 'orangered', fontWeight: 900 }} onClick={handleLogout}>
+            <AppBar sx={{ boxShadow: 'none' }}>
+                <Toolbar className={`text-center flex items-center justify-between flex-wrap ${navBgColor}`}>
+                    <h1 className='text-xl sm:text-2xl'>
+                        User
+                    </h1>
+                    <div className='flex justify-between items-center gap-2'>
+                        <Button sx={{ color: theme ? 'white' : 'red', fontWeight: '900' }} onClick={handleLogout} disableElevation>
                             LOGOUT
                         </Button>
-                    </Toolbar>
-                </AppBar>
-            </HideOnScroll>
+                        <ThemeButtons position='static' />
+                    </div>
+                </Toolbar>
+            </AppBar>
+            </HideOnScroll >
 
             <Toolbar id="back-to-top-anchor" />
 
