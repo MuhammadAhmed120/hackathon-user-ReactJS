@@ -20,12 +20,13 @@ export default {
 
         // bgDarkGradient: "rgb(45, 45, 45)",
       },
+      
       // BODY GRADIENT COLOR
       backgroundImage: {
         // bgLightGradient: "linear-gradient(to right, rgb(255, 255, 255) 10%, rgb(209, 216, 255) 100%)",
-        bgLightGradient: "linear-gradient(to right, rgb(250, 250, 250) 10%, rgb(245, 245, 245) 90%)",
+        bgLightGradient: "linear-gradient(to bottom right, rgb(250, 250, 250) 10%, rgb(245, 245, 245) 90%)",
         // bgDarkGradient: "linear-gradient(to bottom right, rgb(74, 85, 104) 10%, rgb(26, 32, 44) 90%)",
-        bgDarkGradient: "linear-gradient(to right, rgb(25, 25, 25) 10%, rgb(35, 35, 35) 90%)"
+        bgDarkGradient: "linear-gradient(to bottom right, rgb(25, 25, 25) 10%, rgb(35, 35, 35) 90%)"
 
       }
     },

@@ -115,7 +115,7 @@ const Login = () => {
                 <Form
                     ref={formRef}
                     name="normal_login"
-                    className={`mx-auto max-w-sm px-4 py-6 ${`sm:${formColor}`} sm:tabDark  sm:shadow-lg rounded-lg w-full flex flex-col sm:justify-center sm:gap-14 sm:h-auto h-full justify-evenly`}
+                    className={`mx-auto max-w-sm px-4 py-6 ${theme ? 'bg-white' : 'bg-[#2d2d2d]'} sm:shadow-lg rounded-lg w-full flex flex-col sm:justify-center sm:gap-14 sm:h-auto h-full justify-evenly`}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     scrollToFirstError={true}

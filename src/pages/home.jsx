@@ -32,8 +32,8 @@ export default function Home() {
         <div>
             {/* <Navbar /> */}
             <NavTab activeTab={tab} changeTab={setTab} />
-            <div className="py-12 h-full">
-                {tab === 2 ? <UserAttendance /> : <UserAccount />}
+            <div className="h-full mt-20 pb-20">
+                {tab === 2 ? <UserAttendance changeTab={setTab} /> : <UserAccount changeTab={setTab} />}
             </div>
         </div>
     )

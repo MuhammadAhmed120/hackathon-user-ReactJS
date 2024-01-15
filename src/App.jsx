@@ -13,7 +13,8 @@ export default function App() {
   }, [theme])
 
   return (
-    <div className={`${color}`}>
+    // <div className={`${color}`}>
+    <div>
       <Routing />
     </div>
   )
