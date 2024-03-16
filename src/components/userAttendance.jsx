@@ -2,8 +2,11 @@ import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 
 import { ThemeContext } from "../config/themeContext"
+
 import SkeletonInput from "antd/es/skeleton/Input"
-import CustomModal from "./modal"
+
+import CustomModal from "./Modal.jsx"
+import AttendButton from './AttendButton.jsx'
 
 export default function UserAttendance({ changeTab }) {
     const { VITE_BACKEND_PORT } = import.meta.env
@@ -64,7 +67,7 @@ export default function UserAttendance({ changeTab }) {
             <CustomModal open={open} handleClose={handleClose} bgcolor={formColor} detail={selectIndex} />
 
 
-            <div className={`mx-auto px-4 py-6 w-full flex flex-col justify-start gap-7 h-full ${formColor}`}>
+            <div className={`mx-auto px-4 py-6 w-full flex flex-col justify-start gap-7 h-[80vh] overflow-y-auto ${formColor}`}>
 
                 {/* TITLE */}
                 <h1 className="text-lg sm:text-2xl w-fit h-fit border-b-4 border-b-violet-800">
@@ -74,7 +77,9 @@ export default function UserAttendance({ changeTab }) {
                 {/* USER DATA */}
                 <div className="flex flex-col gap-2 flex-wrap justify-between">
                     {/* ATTENDANCE & VIEW ACCOUNT TEXT */}
-                    <div className="flex gap-2 items-center justify-between flex-wrap mb-4">
+                    <div className="flex gap-5 items-center justify-between flex-wrap mb-4">
+                        <AttendButton className="" />
+
                         <p className="font-semibold text-lg sm:text-2xl hidden">Attendance</p>
                         <p className="text-violet-700 hover:text-violet-600 ml-auto active:opacity-70 cursor-pointer uppercase font-semibold text-sm" onClick={() => changeTab(1)}>View Account</p>
                     </div>
