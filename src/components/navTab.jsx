@@ -12,7 +12,7 @@ import { MdOutlineMenu } from "react-icons/md";
 import { TiUser, TiChartBar, TiInputChecked, TiContacts } from "react-icons/ti";
 
 import { ThemeContext } from '../config/themeContext';
-import ThemeButtons from './themeBtn';
+import ThemeButtons from './ThemeBtn';
 import { LogoutTwoTone } from '@mui/icons-material';
 
 function ScrollTop(props) {
@@ -83,8 +83,8 @@ export default function NavTab({ activeTab, changeTab }, props) {
 
     // LOGOUT FUNCTION
     const handleLogout = async () => {
-        await localStorage.removeItem('token')
-        await localStorage.removeItem('UID')
+        localStorage.removeItem('token')
+        localStorage.removeItem('UID')
         navigate('/login')
     }
 

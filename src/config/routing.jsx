@@ -26,7 +26,7 @@ export default function Routing() {
                         headers
                     });
                     if (response.status === 200 && response.data.message === "AUTHORIZED") {
-                        localStorage.setItem('UID', response.data.decodedToken.customer_id)
+                        localStorage.setItem('UID', response.data.decodedToken.user_id)
                         return setAuthorize(true);
                     } else {
                         console.error('Token not authorized:', response.data);

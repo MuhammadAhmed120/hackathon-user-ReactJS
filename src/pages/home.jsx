@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import Navbar from "../components/navbar"
-import UserAccount from '../components/userAccount.jsx';
-import UserAttendance from '../components/userAttendance.jsx';
-import NavTab from '../components/navTab.jsx';
+import UserAccount from '../components/UserAccount.jsx';
+import UserAttendance from '../components/UserAttendance.jsx';
+import NavTab from '../components/NavTab.jsx';
 
 import { ThemeContext } from '../config/themeContext';
 

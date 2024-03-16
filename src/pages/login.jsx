@@ -11,7 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { ThemeContext } from '../config/themeContext.jsx';
-import ThemeButtons from '../components/themeBtn.jsx';
+import ThemeButtons from '../components/ThemeBtn.jsx';
 
 
 const Login = () => {

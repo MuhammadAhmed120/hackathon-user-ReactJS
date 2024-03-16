@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { AppBar, Toolbar, CssBaseline, Slide, useScrollTrigger, Box, Fab, Fade, Button } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-import ThemeButtons from './themeBtn.jsx';
-import { ThemeContext } from "../config/themeContext"
+import ThemeButtons from './ThemeBtn.jsx';
+import { ThemeContext } from "../config/themeContext.jsx"
 
 function ScrollTop(props) {
     const { children, window } = props;
@@ -65,8 +65,8 @@ export default function Navbar(props) {
     const [navBgColor, setNavBgColor] = useState('')
 
     const handleLogout = async () => {
-        await localStorage.removeItem('token')
-        await localStorage.removeItem('UID')
+        localStorage.removeItem('token')
+        localStorage.removeItem('UID')
         navigate('/login')
     }
 
