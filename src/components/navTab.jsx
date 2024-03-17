@@ -66,7 +66,7 @@ ScrollTop.propTypes = HideOnScroll.propTypes = {
     window: PropTypes.func,
 };
 
-export default function NavTab({ activeTab, changeTab }, props) {
+export default function NavTab({ activeTab, changeTab, tabs }, props) {
 
     const { theme } = useContext(ThemeContext)
     const [tabBgColor, setTabBgColor] = useState('')
@@ -74,12 +74,6 @@ export default function NavTab({ activeTab, changeTab }, props) {
     const [open, setOpen] = React.useState(false);
 
     const navigate = useNavigate()
-
-    const tabs = [
-        { id: 1, title: 'Personal', icon: TiUser, component: '<UserAccount />' },
-        { id: 2, title: 'Attendance', icon: TiChartBar, component: '<UserAttendance />' },
-        { id: 3, title: 'Course', icon: TiContacts, component: '<UserAttendance />' },
-    ]
 
     // LOGOUT FUNCTION
     const handleLogout = async () => {
@@ -139,7 +133,7 @@ export default function NavTab({ activeTab, changeTab }, props) {
                                                 className={`cursor-pointer p-[14px] active:bg-opacity-70 border-b ${theme ? `hover:bg-slate-200 border-b-slate-200` : `hover:bg-neutral-600 border-b-neutral-600`} ${activeTab === tabInfo.id ? 'text-navLight' : ''} ${tabInfo.id === tabs.length ? 'border-b-0' : ''} flex items-center gap-2`}
                                                 onClick={() => { changeTab(tabInfo.id); setOpen(false) }}
                                             >
-                                                <tabInfo.icon />
+                                                {tabInfo.icon && <tabInfo.icon />}
                                                 <h1>
                                                     {tabInfo.title}
                                                 </h1>

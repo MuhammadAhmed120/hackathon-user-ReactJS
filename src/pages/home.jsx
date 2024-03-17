@@ -7,6 +7,12 @@ import NavTab from '../components/NavTab.jsx';
 
 import { ThemeContext } from '../config/themeContext';
 
+const tabs = [
+    { id: 1, title: 'Personal', component: UserAccount },
+    { id: 2, title: 'Attendance', component: UserAttendance },
+    { id: 3, title: 'Course', component: UserAttendance },
+]
+
 export default function Home() {
     const { VITE_BACKEND_PORT } = import.meta.env
 
@@ -30,9 +36,10 @@ export default function Home() {
     return (
         <div>
             {/* <Navbar /> */}
-            <NavTab activeTab={tab} changeTab={setTab} />
-            <div className="h-full mt-20 pb-20">
-                {tab === 2 ? <UserAttendance changeTab={setTab} /> : <UserAccount changeTab={setTab} />}
+            <NavTab tabs={tabs} activeTab={tab} changeTab={setTab} />
+            <div className="h-full mt-5 pb-20">
+                {tabs.map(tabInfo => tabInfo.id === tab && <tabInfo.component />)}
+                {/* {tab === 2 ? <UserAttendance changeTab={setTab} /> : <UserAccount changeTab={setTab} />} */}
             </div>
         </div>
     )
