@@ -96,7 +96,7 @@ export default function AttendButton({ className }) {
                 loading={loading}
                 variant={attend ? "outlined" : "contained"}
                 disableElevation
-                color="primary"
+                color="success"
                 onClick={handleSubmit}
             >
                 <p className="font-bold">
