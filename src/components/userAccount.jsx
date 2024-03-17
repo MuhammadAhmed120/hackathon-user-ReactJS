@@ -3,7 +3,7 @@ import axios from "axios"
 
 import { ThemeContext } from "../config/themeContext"
 import SkeletonInput from "antd/es/skeleton/Input"
-import { Skeleton } from "antd"
+import { Image, Skeleton } from "antd"
 
 import { FaCircleUser } from "react-icons/fa6";
 
@@ -63,13 +63,19 @@ export default function UserAccount({ changeTab }) {
 
                 {/* USER ACCOUNT (TITLE) & IMAGE */}
                 <div className="flex flex-wrap justify-between gap-3">
-                    <h1 className="text-lg sm:text-2xl w-fit h-fit border-b-4 border-b-violet-800">
+                    <h1 className="text-2xl sm:text-3xl w-fit h-fit border-b-4 border-b-violet-800">
                         User Account
                     </h1>
 
                     {userData ?
                         userData.userProfileImage ?
-                            <img src={userData.userProfileImage} alt={userData.userName} className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full self-end" />
+                            <Image
+                                src={userData.userProfileImage}
+                                alt={userData.userName}
+                                width={80}
+                                height={80}
+                                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full self-end"
+                            />
                             :
                             <FaCircleUser className="self-end w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20" />
                         :
