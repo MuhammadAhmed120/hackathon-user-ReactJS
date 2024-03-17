@@ -8,6 +8,8 @@ import SkeletonInput from "antd/es/skeleton/Input"
 import CustomModal from "./Modal.jsx"
 import AttendButton from './AttendButton.jsx'
 
+import { TiTick, TiTimes } from "react-icons/ti";
+
 export default function UserAttendance({ changeTab }) {
     const { VITE_BACKEND_PORT } = import.meta.env
 
@@ -67,12 +69,19 @@ export default function UserAttendance({ changeTab }) {
             <CustomModal open={open} handleClose={handleClose} bgcolor={formColor} detail={selectIndex} />
 
 
-            <div className={`mx-auto px-4 py-6 w-full flex flex-col justify-start gap-7 h-[80vh] overflow-y-auto ${formColor}`}>
+            <div className={`mx-auto px-4 py-6 w-full flex flex-col justify-start gap-10 h-[90vh] overflow-y-auto ${formColor}`}>
 
                 {/* TITLE */}
-                <h1 className="text-lg sm:text-2xl w-fit h-fit border-b-4 border-b-violet-800">
-                    User Attendance
-                </h1>
+                <div className="w-full flex justify-between gap-2 flex-wrap">
+                    <h1 className="text-2xl sm:text-3xl w-fit h-fit border-b-4 border-b-violet-800">
+                        User Attendance
+                    </h1>
+
+                    <div className="flex gap-2 flex-wrap items-center">
+                        <p>Total:</p>
+                        <p className="font-bold">{userData ? userData?.attendance?.length : 'N/A'}</p>
+                    </div>
+                </div>
 
                 {/* USER DATA */}
                 <div className="flex flex-col gap-2 flex-wrap justify-between">
@@ -80,7 +89,6 @@ export default function UserAttendance({ changeTab }) {
                     <div className="flex gap-5 items-center justify-between flex-wrap mb-4">
                         <AttendButton className="" />
 
-                        <p className="font-semibold text-lg sm:text-2xl hidden">Attendance</p>
                         <p className="text-violet-700 hover:text-violet-600 ml-auto active:opacity-70 cursor-pointer uppercase font-semibold text-sm" onClick={() => changeTab(1)}>View Account</p>
                     </div>
 
@@ -91,19 +99,24 @@ export default function UserAttendance({ changeTab }) {
                                 return (
                                     <div
                                         key={index}
-                                        className={`${inputColor} cursor-pointer w-full p-3 pl-2 mt-0 flex flex-col gap-2 mb-5 border-b ${index % userData.attendance.length ? 'border-b-violet-300' : 'border-b-violet-500'}`}
-
+                                        className={`${inputColor} cursor-pointer w-full p-3 pl-2 mt-0 flex flex-col gap-2 mb-5 border-b ${index % 2 === 0 ? 'border-b-violet-300' : 'border-b-violet-500'} ${!attend.attend && 'border-b-red-500 border-b-2'}`}
                                         onClick={() => handleOpen(index)}
                                     >
                                         <div className={`flex justify-between gap-2 flex-wrap items-center font-semibold`}>
-                                            <p>{attend.checkInTime}</p>
-                                            <p className="text-sm">{attend.checkInLocation}</p>
+                                            <div className="flex gap-2 justify-start items-center">
+                                                <p>{attend.attend ? <TiTick color="violet" /> : <TiTimes color="red" />}</p>
+                                                <p>{attend?.checkInTime.slice(0, 11)}, {attend?.checkInTime.slice(11, 16)}</p>
+                                            </div>
+                                            <p className="text-sm">{attend?.checkInLocation}</p>
                                         </div>
                                     </div>
                                 )
                             }) : "No records found."
                             :
-                            <SkeletonInput block active size="large" />
+                            <>
+                                <SkeletonInput block active size="large" className="mb-2" />
+                                <SkeletonInput block active size="large" />
+                            </>
                         }
                     </div>
                 </div>
