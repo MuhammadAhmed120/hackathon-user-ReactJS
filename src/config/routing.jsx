@@ -8,6 +8,7 @@ import UserAccount from "../pages/userAccount";
 import Register from "../pages/register";
 import Login from "../pages/login";
 import ResetPass from "../pages/resetPass";
+import UserAttendance from "../components/UserAttendance";
 
 export default function Routing() {
     const token = localStorage.getItem('token') || false
