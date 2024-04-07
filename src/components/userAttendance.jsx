@@ -16,6 +16,7 @@ export default function UserAttendance({ changeTab }) {
     const [userData, setUserData] = useState(null)
 
     const [selectIndex, setSelectIndex] = useState(null)
+    const [attendanceMarked, setAttendanceMarked] = useState(false);
 
     // MODAL
     const [open, setOpen] = useState(false);
@@ -55,21 +56,24 @@ export default function UserAttendance({ changeTab }) {
 
                     const fetchData = await axios.get(`${VITE_BACKEND_PORT}/user/my-account`, { headers })
 
-                    setUserData(fetchData.data.userData)
+                    if (fetchData.data) {
+                        fetchData.data.userData.attendance.reverse();
+                        setUserData(fetchData.data.userData)
+                    }
                 } catch (error) {
                     console.log(error)
                 }
             }
         }
         fetchUserData()
-    }, []);
+    }, [attendanceMarked]);
 
     return (
         <div className="">
             <CustomModal open={open} handleClose={handleClose} bgcolor={formColor} detail={selectIndex} />
 
 
-            <div className={`mx-auto px-4 py-6 w-full flex flex-col justify-start gap-10 h-[90vh] overflow-y-auto ${formColor}`}>
+            <div className={`mx-auto px-4 py-6 w-full flex flex-col justify-start gap-10 ${formColor}`}>
 
                 {/* TITLE */}
                 <div className="w-full flex justify-between gap-2 flex-wrap">
@@ -87,19 +91,19 @@ export default function UserAttendance({ changeTab }) {
                 <div className="flex flex-col gap-2 flex-wrap justify-between">
                     {/* ATTENDANCE & VIEW ACCOUNT TEXT */}
                     <div className="flex gap-5 items-center justify-between flex-wrap mb-4">
-                        <AttendButton className="" />
+                        <AttendButton className="" setAttendanceMarked={setAttendanceMarked} />
 
                         <p className="text-violet-700 hover:text-violet-600 ml-auto active:opacity-70 cursor-pointer uppercase font-semibold text-sm" onClick={() => changeTab(1)}>View Account</p>
                     </div>
 
                     {/* ATTENDANCE RENDER */}
-                    <div>
+                    <div className="h-[70vh] overflow-y-auto">
                         {userData ?
                             userData.attendance ? userData.attendance.map((attend, index) => {
                                 return (
                                     <div
                                         key={index}
-                                        className={`${inputColor} cursor-pointer w-full p-3 pl-2 mt-0 flex flex-col gap-2 mb-5 border-b ${index % 2 === 0 ? 'border-b-violet-300' : 'border-b-violet-500'} ${!attend.attend && 'border-b-red-500 border-b-2'}`}
+                                        className={`${inputColor} cursor-pointer w-full p-3 pl-2 mt-0 flex flex-col gap-2 mb-5 border-b ${index % 2 === 0 ? 'border-b-violet-300' : 'border-b-violet-500'} ${!attend.attend && '!border-b-red-500'}`}
                                         onClick={() => handleOpen(index)}
                                     >
                                         <div className={`flex justify-between gap-2 flex-wrap items-center font-semibold`}>

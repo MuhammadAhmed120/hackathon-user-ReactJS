@@ -1,16 +1,17 @@
 import { useState, useEffect, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import NavTab from '../components/NavTab.jsx';
 import UserAccount from '../components/UserAccount.jsx';
 import UserAttendance from '../components/UserAttendance.jsx';
-import NavTab from '../components/NavTab.jsx';
+import UserCourse from '../components/UserCourse.jsx';
 
 import { ThemeContext } from '../config/themeContext';
 
 const tabs = [
     { id: 1, title: 'Personal', component: UserAccount },
     { id: 2, title: 'Attendance', component: UserAttendance },
-    { id: 3, title: 'Course', component: UserAttendance },
+    { id: 3, title: 'Course', component: UserCourse },
 ]
 
 export default function Home() {
@@ -38,7 +39,7 @@ export default function Home() {
             {/* <Navbar /> */}
             <NavTab tabs={tabs} activeTab={tab} changeTab={setTab} />
             <div className="h-full mt-5 pb-20">
-                {tabs.map(tabInfo => tabInfo.id === tab && <tabInfo.component />)}
+                {tabs.map(tabInfo => tabInfo.id === tab && <tabInfo.component changeTab={setTab} />)}
                 {/* {tab === 2 ? <UserAttendance changeTab={setTab} /> : <UserAccount changeTab={setTab} />} */}
             </div>
         </div>

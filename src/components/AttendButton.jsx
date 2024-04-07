@@ -8,7 +8,7 @@ import { LoadingButton } from "@mui/lab";
 
 import { CiCircleInfo } from 'react-icons/ci'
 
-export default function AttendButton({ className }) {
+export default function AttendButton({ className, setAttendanceMarked }) {
     const { VITE_BACKEND_PORT } = import.meta.env
 
     const [status, setStatus] = useState("");
@@ -37,6 +37,7 @@ export default function AttendButton({ className }) {
                     const response = await axios.post(`${VITE_BACKEND_PORT}/user/attendance/checkin`, data, { headers })
                     if (response.data.attend) {
                         setAttend(true);
+                        setAttendanceMarked(state => !state)
                     } else {
                         setAttend(false);
                     }
@@ -55,38 +56,38 @@ export default function AttendButton({ className }) {
 
 
     // SUBMITTING ATTENDANCE
-    const handleSubmit = async () => {
-        if (attend === null) {
-            setLoading(false)
-            return;
-        }
-        setLoading(true)
+    // const handleSubmit = async () => {
+    //     if (attend === null) {
+    //         setLoading(false)
+    //         return;
+    //     }
+    //     setLoading(true)
 
-        const userToken = localStorage.getItem("UID");
-        const headers = {
-            Authorization: `Bearer ${userToken}`,
-        };
+    //     const userToken = localStorage.getItem("UID");
+    //     const headers = {
+    //         Authorization: `Bearer ${userToken}`,
+    //     };
 
-        const data = {
-            userId: userToken,
-            checkInLocation: 'SMIT',
-        };
+    //     const data = {
+    //         userId: userToken,
+    //         checkInLocation: 'SMIT',
+    //     };
 
-        try {
-            const response = await axios.post(`${VITE_BACKEND_PORT}/user/attendance/checkin`, data, { headers });
-            setStatus(response.data.message);
-            if (response.data.attend) {
-                setAttend(true);
-            }
-            setLoading(false)
-        } catch (error) {
-            console.log(error);
-            setStatus("An error occurred. Please try again.");
-            setLoading(false)
-            setAttend(null);
-        }
+    //     try {
+    //         const response = await axios.post(`${VITE_BACKEND_PORT}/user/attendance/checkin`, data, { headers });
+    //         setStatus(response.data.message);
+    //         if (response.data.attend) {
+    //             setAttend(true);
+    //         }
+    //         setLoading(false)
+    //     } catch (error) {
+    //         console.log(error);
+    //         setStatus("An error occurred. Please try again.");
+    //         setLoading(false)
+    //         setAttend(null);
+    //     }
 
-    };
+    // };
 
     return (
         // ...
@@ -97,7 +98,7 @@ export default function AttendButton({ className }) {
                 variant={attend ? "outlined" : "contained"}
                 disableElevation
                 color="success"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
             >
                 <p className="font-bold">
                     Submit Attendance
